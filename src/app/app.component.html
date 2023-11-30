@@ -1,0 +1,72 @@
+<p-menubar [model]="items">
+    <ng-template pTemplate="start">
+        <img src="https://primefaces.org/cdn/primeng/images/primeng.svg" height="40" class="mr-2" />
+    </ng-template>
+    <ng-template pTemplate="end">
+        <input pInputText type="text" pInputText placeholder="Search" inputStyleClass="w-full"
+            [(ngModel)]="searchCriteria" />
+    </ng-template>
+</p-menubar>
+<p-messages [(value)]="notifications" [enableService]="false" [closable]="true"></p-messages>
+<div class="container">
+    <ul>
+        <li *ngFor="let employee of employees">
+            <p-card header="{{employee.name}}" subheader="{{employee.jobTitle}}" [style]="{ width: '360px' }">
+                <ng-template pTemplate="header">
+                    <i class="fa-solid fa-user-tie fa-3x" style="margin-left: 40%;"></i>
+                </ng-template>
+                <ng-template pTemplate="content">
+                    <div>Employee Id: {{employee.id}}</div>
+                    <div>Email: {{employee.email}}</div>
+                    <div>Phone: +91 {{employee.phone}}</div>
+                    <div>Emp Code: {{employee.employeeCode}}</div>
+                </ng-template>
+                <ng-template pTemplate="footer">
+                    <button pButton icon="fa-solid fa-pencil" (click)="editEmployee(employee)"></button>
+                    <button pButton icon="fa-solid fa-trash" class="p-button-danger" [style]="{marginLeft: '4%'}"
+                        (click)="delete(employee.id)"></button>
+                </ng-template>
+            </p-card>
+        </li>
+    </ul>
+</div>
+
+<p-dialog header="Employee Details" [(visible)]="showDialog" [style]="{width: '50vw'}" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div>
+            <label for="id"> ID: </label>
+            <p-inputNumber [(ngModel)]="frmEmployee.id" [readonly]="true" id="id" [disabled]="true"></p-inputNumber>
+        </div>
+        <div>
+            <label for="name"> Name:</label>
+            <input pInputText [(ngModel)]="frmEmployee.name" id="name" required>
+        </div>
+        <div>
+            <label for="email"> Email: </label>
+            <input pInputText [(ngModel)]="frmEmployee.email" id="email" required>
+        </div>
+        <div>
+            <label for="phone"> Phone: </label>
+            <input pInputText [(ngModel)]="frmEmployee.phone" id="phone" required>
+        </div>
+        <div>
+            <label for="jobTitle"> JobTitle: </label>
+            <input pInputText id="jobTitle" [(ngModel)]="frmEmployee.jobTitle" required>
+        </div>
+        <div>
+            <label for="imageUrl"> ImageUrl: </label>
+            <input pInputText id="imageUrl" [(ngModel)]="frmEmployee.imageUrl">
+        </div>
+        <div>
+            <label for="empCode"> Code: </label>
+            <input pInputText id="empCode" [(ngModel)]="frmEmployee.employeeCode" [readonly]="true" [disabled]="true">
+        </div>
+    </ng-template>
+    <ng-template pTemplate="footer">
+        <button pButton label="save" icon="fa-solid fa-check" (click)="save()"></button>
+        <button pButton label="close" icon="fa-solid fa-xmark" class="p-button-secondary"
+            (click)="hideDialog()"></button>
+    </ng-template>
+</p-dialog>
+<p-confirmDialog [style]="{width: '50vw'}"></p-confirmDialog>

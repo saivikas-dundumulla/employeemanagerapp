@@ -1,0 +1,13 @@
+.container {
+    margin: 0 var(--margin-lg);
+}
+.container ul{
+    display: flex;
+    list-style-type: none;
+    gap: var(--spacer-lg);
+    flex-wrap: wrap;
+}
+.container ul li {
+   flex-direction: row;
+    width: 400px;
+}
